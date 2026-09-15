@@ -1,6 +1,8 @@
 import { AGE, LAB_FEATURES } from "@/lib/features";
 import { isMlApiConfigured, mlFetch } from "@/lib/ml-api";
 
+export const maxDuration = 60;
+
 const ALLOWED_NUMERIC = new Set<string>([
   AGE.key,
   ...LAB_FEATURES.map((feature) => feature.key),

@@ -1,6 +1,7 @@
 import { isMlApiConfigured, mlFetch } from "@/lib/ml-api";
 
 export const revalidate = 300;
+export const maxDuration = 60;
 
 export async function GET() {
   if (!isMlApiConfigured()) {

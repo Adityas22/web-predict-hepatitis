@@ -21,7 +21,8 @@ export async function mlFetch(
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20000);
+  // Long enough to survive a cold start on free hosting tiers.
+  const timeout = setTimeout(() => controller.abort(), 55000);
 
   try {
     return await fetch(`${base}${path}`, {
