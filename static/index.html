@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HepaCheck — Skrining Hepatitis C berbasis Machine Learning</title>
+<meta name="description" content="Edukasi lengkap tentang Hepatitis C — penularan, gejala, diagnosis, pengobatan, dan pencegahan — plus alat prediksi berbasis machine learning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Langsung ke konten</a>
+
+<nav class="nav" aria-label="Navigasi utama">
+  <div class="wrap nav__inner">
+    <a class="brand" href="/" aria-label="HepaCheck — beranda">
+      <svg viewBox="0 0 24 24" class="brand__mark" aria-hidden="true"><path d="M12 2.5S5 10.5 5 15.5a7 7 0 0 0 14 0c0-5-7-13-7-13Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 5.5c.3 3.2-1.6 4.8-1.6 7.2a1.8 1.8 0 0 0 3.6 0c0-1.4-.8-2.4-1.2-3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span class="brand__name">Hepa<span>Check</span></span>
+    </a>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span>
+    </button>
+    <div class="nav__links" id="navLinks">
+      <a href="/#tentang">Apa itu</a>
+      <a href="/#penularan">Penularan</a>
+      <a href="/#gejala">Gejala</a>
+      <a href="/#diagnosis">Diagnosis</a>
+      <a href="/#referensi">Referensi</a>
+      <a class="btn btn--primary btn--sm" href="/predict">Coba Prediksi</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">Skrining Hepatitis C · berbasis machine learning</p>
+        <h1 class="hero__title">Hepatitis C bisa <em>diam-diam</em> berkembang. Mulai dari memahaminya.</h1>
+        <p class="hero__lead">Kami merangkum apa yang perlu Anda ketahui tentang infeksi virus hepatitis C — dari cara menular, gejala, hingga pengobatannya — lalu mengubahnya menjadi alat prediksi berbasis data laboratorium.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="/predict">Coba Prediksi</a>
+          <a class="btn btn--ghost" href="#tentang">Pelajari faktanya <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="hero__note">Konten edukasi. Bukan pengganti diagnosis medis.</p>
+      </div>
+
+      <div class="hero__panel" aria-hidden="true">
+        <div class="labpanel">
+          <div class="labpanel__head">
+            <div class="labpanel__headleft">
+              <span class="labpanel__label">Permintaan Pemeriksaan</span>
+              <span class="labpanel__id mono">SMPL-0007</span>
+            </div>
+            <span class="labpanel__status">Hati · Liver Panel</span>
+          </div>
+          <div class="labpanel__barcode" aria-hidden="true"></div>
+          <div class="labpanel__rows">
+            <div class="labrow"><span class="labrow__code">ALT</span><span class="labrow__sep"></span><span class="labrow__val mono" data-count="23.0">0.0</span><span class="labrow__unit">U/L</span><span class="labrow__dot dot--ok"></span></div>
+            <div class="labrow"><span class="labrow__code">AST</span><span class="labrow__sep"></span><span class="labrow__val mono" data-count="25.9">0.0</span><span class="labrow__unit">U/L</span><span class="labrow__dot dot--ok"></span></div>
+            <div class="labrow"><span class="labrow__code">GGT</span><span class="labrow__sep"></span><span class="labrow__val mono" data-count="23.3">0.0</span><span class="labrow__unit">U/L</span><span class="labrow__dot dot--ok"></span></div>
+            <div class="labrow"><span class="labrow__code">BIL</span><span class="labrow__sep"></span><span class="labrow__val mono" data-count="7.3">0.0</span><span class="labrow__unit">µmol/L</span><span class="labrow__dot dot--ok"></span></div>
+            <div class="labrow"><span class="labrow__code">ALB</span><span class="labrow__sep"></span><span class="labrow__val mono" data-count="42.0">0.0</span><span class="labrow__unit">g/L</span><span class="labrow__dot dot--ok"></span></div>
+            <div class="labrow labrow--alert"><span class="labrow__code">ALT</span><span class="labrow__sep"></span><span class="labrow__val mono" data-count="180.4">0.0</span><span class="labrow__unit">U/L</span><span class="labrow__dot dot--warn"></span></div>
+          </div>
+          <div class="labpanel__foot mono">HepaCheck · Liver Panel v1</div>
+          <div class="labpanel__scan"></div>
+        </div>
+        <p class="hero__caption mono">Nilai contoh dari data latih model — bandingkan dengan hasil lab Anda.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- TENTANG -->
+  <section class="section" id="tentang">
+    <div class="wrap">
+      <p class="eyebrow">01 · Dasar</p>
+      <h2 class="section__title">Apa itu Hepatitis C?</h2>
+      <div class="split">
+        <div class="split__main">
+          <p>Hepatitis C adalah peradangan pada hati yang dipicu oleh infeksi virus hepatitis C (HCV). Infeksi ini bisa berlangsung singkat (<strong>akut</strong>) selama beberapa minggu, atau menetap dan berkembang menjadi <strong>kronis</strong> — sebuah kondisi yang dapat berjalan bertahun-tahun tanpa disadari hingga akhirnya merusak hati.</p>
+          <p>HCV adalah virus <strong>bloodborne</strong> (menular melalui darah). Berbeda dengan hepatitis A yang menyebar lewat makanan, HCV berpindah ketika darah orang yang terinfeksi masuk ke aliran darah orang lain <a href="https://www.who.int/news-room/fact-sheets/detail/hepatitis-c" target="_blank" rel="noopener">[WHO]</a> <a href="https://www.cdc.gov/hepatitis-c/about/index.html" target="_blank" rel="noopener">[CDC]</a>.</p>
+        </div>
+        <div class="split__side">
+          <div class="phasetile">
+            <span class="phasetile__tag">Akut</span>
+            <p>Infeksi awal yang umumnya berlangsung beberapa minggu. Sebagian orang mampu membersihkan virusnya sendiri tanpa pengobatan.</p>
+          </div>
+          <div class="phasetile">
+            <span class="phasetile__tag phasetile__tag--alt">Kronis</span>
+            <p>Jika virus menetap lebih dari 6 bulan, infeksi menjadi kronis dan berisiko menimbulkan sirosis atau kanker hati bila tidak ditangani.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENULARAN -->
+  <section class="section section--tint" id="penularan">
+    <div class="wrap">
+      <p class="eyebrow">02 · Penyebab</p>
+      <h2 class="section__title">Bagaimana cara menular?</h2>
+      <p class="section__lede">HCV hanya menular lewat darah. Lima jalur penularan yang paling umum:</p>
+      <ul class="routegrid">
+        <li class="route">
+          <span class="route__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 3 9 15"/><path d="m9 15-3 3"/><path d="m9 15 3 3 3-3"/><path d="M5 19 3 21"/><path d="M12 8l4-4"/></svg></span>
+          <h3>Berbagi jarum suntik</h3>
+          <p>Penyuntik narkoba yang berbagi jarum atau alat suntik berisiko paling tinggi tertular.</p>
+        </li>
+        <li class="route">
+          <span class="route__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg></span>
+          <h3>Prosedur medis tidak steril</h3>
+          <p>Perawatan di fasilitas dengan alat medis yang tidak disterilkan dengan baik dapat memindahkan virus.</p>
+        </li>
+        <li class="route">
+          <span class="route__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3S5 11 5 15a7 7 0 0 0 14 0c0-4-7-12-7-12Z"/><path d="M12 10v5M9.5 12.5h5"/></svg></span>
+          <h3>Transfusi yang tidak diskrining</h3>
+          <p>Penerima darah atau organ yang belum melalui pemeriksaan ketat berisiko — sekarang sudah sangat jarang karena skrining rutin.</p>
+        </li>
+        <li class="route">
+          <span class="route__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-7-9.2A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 7 3.4c0 4.9-7 9.2-7 9.2Z"/></svg></span>
+          <h3>Dari ibu ke bayi</h3>
+          <p>Ibu yang terinfeksi dapat menularkan HCV kepada bayinya, terutama saat proses kelahiran.</p>
+        </li>
+        <li class="route">
+          <span class="route__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg></span>
+          <h3>Hubungan seksual berisiko</h3>
+          <p>Kontak seksual yang melibatkan paparan darah (seperti saat menstruasi atau luka) juga dapat menularkan virus.</p>
+        </li>
+      </ul>
+      <p class="section__note">HCV <em>tidak</em> menular lewat air liur, bersin, pelukan, berbagi makanan, atau ciuman biasa <a href="https://www.cdc.gov/hepatitis-c/about/index.html" target="_blank" rel="noopener">[CDC]</a>.</p>
+    </div>
+  </section>
+
+  <!-- GEJALA -->
+  <section class="section" id="gejala">
+    <div class="wrap">
+      <p class="eyebrow">03 · Tanda</p>
+      <h2 class="section__title">Gejala: sering kali tak terasa</h2>
+      <p class="section__lede">Inilah bagian yang membuat hepatitis C berbahaya — sebagian besar orang tidak menyadari infeksinya.</p>
+      <div class="gejalagrid">
+        <article class="gejala">
+          <div class="gejala__head">
+            <span class="gejala__num mono">A</span>
+            <h3>Fase Akut</h3>
+          </div>
+          <p>Pada fase awal, sebagian besar orang <strong>tidak merasakan gejala apa pun</strong>. Bila muncul, gejalanya bisa ringan dan mirip flu:</p>
+          <ul class="ticks">
+            <li>Demam dan rasa lelah</li>
+            <li>Mual, muntah, nafsu makan turun</li>
+            <li>Nyeri perut (kuadran kanan atas)</li>
+            <li>Urin berwarna gelap</li>
+            <li>Kulit dan mata menguning (jaundice)</li>
+          </ul>
+        </article>
+        <article class="gejala">
+          <div class="gejala__head">
+            <span class="gejala__num mono">B</span>
+            <h3>Fase Kronis</h3>
+          </div>
+          <p>Infeksi kronis bisa <strong>asimtomatik selama bertahun-tahun</strong>, lalu muncul tanda berikut saat kerusakan sudah berjalan:</p>
+          <ul class="ticks">
+            <li>Kelelahan yang berkepanjangan</li>
+            <li>Rasa tidak nyaman di perut</li>
+            <li>Berat badan turun tanpa sebab jelas</li>
+            <li>Gatal-gatal pada kulit</li>
+            <li>Komplikasi: <strong>sirosis</strong> dan <strong>kanker hati</strong></li>
+          </ul>
+        </article>
+      </div>
+      <p class="section__note">Banyak orang baru tahu terinfeksi saat pemeriksaan darah rutin atau saat hati sudah mengalami kerusakan <a href="https://www.healthline.com/health/hepatitis-c" target="_blank" rel="noopener">[Healthline]</a>.</p>
+    </div>
+  </section>
+
+  <!-- RISIKO -->
+  <section class="section section--tint" id="risiko">
+    <div class="wrap">
+      <p class="eyebrow">04 · Siapa yang rentan</p>
+      <h2 class="section__title">Faktor risiko</h2>
+      <p class="section__lede">Anda berisiko lebih tinggi jika termasuk salah satu kelompok berikut:</p>
+      <ul class="riskgrid">
+        <li><strong>Pengguna narkoba suntik</strong> — terutama yang berbagi jarum.</li>
+        <li><strong>Tenaga medis</strong> — risiko tertusuk jarum atau terpapar darah pasien.</li>
+        <li><strong>Penerima transfusi darah atau organ</strong> sebelum era skrining ketat.</li>
+        <li><strong>Pasien hemodialisis</strong> dalam jangka panjang.</li>
+        <li><strong>Bayi</strong> yang lahir dari ibu terinfeksi.</li>
+        <li><strong>Orang yang pernah ditato atau ditindik</strong> dengan alat yang tidak steril.</li>
+        <li>Melakukan <strong>hubungan seksual berisiko</strong> dengan paparan darah.</li>
+        <li><strong>Tinggal bersama</strong> penderita HCV (berbagi barang yang bisa terkontaminasi darah).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DIAGNOSIS -->
+  <section class="section" id="diagnosis">
+    <div class="wrap">
+      <p class="eyebrow">05 · Langkah</p>
+      <h2 class="section__title">Bagaimana cara mendiagnosis?</h2>
+      <p class="section__lede">Diagnosis hepatitis C dilakukan bertahap, melalui dua tes darah yang saling melengkapi:</p>
+      <ol class="diagflow">
+        <li>
+          <span class="diagflow__num mono">01</span>
+          <div class="diagflow__body">
+            <h3>Tes antibodi anti-HCV</h3>
+            <p>Mendeteksi antibodi yang dibuat tubuh sebagai respons terhadap virus. Positif berarti pernah terpapar — namun belum tentu masih terinfeksi, karena antibodi menetap setelah infeksi sembuh.</p>
+          </div>
+        </li>
+        <li>
+          <span class="diagflow__num mono">02</span>
+          <div class="diagflow__body">
+            <h3>Tes RNA HCV (konfirmasi)</h3>
+            <p>Jika antibodi positif, tes ini mencari materi genetik virus secara langsung. RNA yang terdeteksi berarti infeksi <em>aktif dan kronis</em>, dan pasien layak mendapat pengobatan.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="section__note">Selain konfirmasi infeksi, dokter biasanya memeriksa tingkat kerusakan hati melalui biopsi, tes elastografi, atau indikator laboratorium seperti ALT dan AST <a href="https://www.who.int/news-room/fact-sheets/detail/hepatitis-c" target="_blank" rel="noopener">[WHO]</a> <a href="https://www.cdc.gov/hepatitis-c/about/index.html" target="_blank" rel="noopener">[CDC]</a>.</p>
+    </div>
+  </section>
+
+  <!-- PENGOBATAN -->
+  <section class="section section--tint" id="pengobatan">
+    <div class="wrap">
+      <p class="eyebrow">06 · Solusi</p>
+      <h2 class="section__title">Pengobatan &amp; pencegahan</h2>
+      <div class="split">
+        <div class="split__main">
+          <h3 class="split__h">Kabar baik: hepatitis C dapat disembuhkan</h3>
+          <p>Hingga saat ini <strong>belum ada vaksin</strong> untuk hepatitis C. Namun infeksi ini <em>bisa disembuhkan</em> dengan obat antivirus golongan <strong>DAA (direct-acting antivirals)</strong> — pengobatan oral selama sekitar 8–12 minggu dengan tingkat kesembuhan lebih dari 90% pada sebagian besar pasien, jauh lebih baik dan lebih singkat dibanding pengobatan generasi lama.</p>
+          <p>Makin cepat terdeteksi, makin besar peluang sembuh tanpa komplikasi serius. Karena itu, skrining pada kelompok berisiko sangat dianjurkan.</p>
+        </div>
+        <div class="split__side">
+          <h3 class="split__h">Cara mencegah</h3>
+          <ul class="ticks">
+            <li>Jangan berbagi jarum suntik atau alat suntik apa pun.</li>
+            <li>Pastikan prosedur medis, tato, dan tindik memakai alat steril sekali pakai.</li>
+            <li>Skrining ketat pada donor darah dan organ.</li>
+            <li>Gunakan pengaman saat hubungan seksual berisiko.</li>
+            <li>Jangan berbagi sikat gigi, pisau cukur, atau benda yang bisa terkena darah.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATISTIK -->
+  <section class="section section--dark" id="statistik">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">07 · Angka di dunia</p>
+      <h2 class="section__title">Skala global masalah ini</h2>
+      <div class="statgrid">
+        <div class="stat">
+          <span class="stat__num mono" data-count="47">0</span>
+          <span class="stat__unit">juta</span>
+          <p class="stat__label">orang hidup dengan infeksi hepatitis C <strong>kronis</strong></p>
+        </div>
+        <div class="stat">
+          <span class="stat__num mono" data-count="0.9">0</span>
+          <span class="stat__unit">juta</span>
+          <p class="stat__label">kasus <strong>baru</strong> per tahun</p>
+        </div>
+        <div class="stat">
+          <span class="stat__num mono" data-count="239">0</span>
+          <span class="stat__unit">ribu</span>
+          <p class="stat__label">kematian per tahun, terutama akibat sirosis dan <strong>kanker hati</strong></p>
+        </div>
+      </div>
+      <p class="stat__src mono">Sumber: WHO Hepatitis C Fact Sheet, 2024.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta">
+    <div class="wrap cta__inner">
+      <div>
+        <h2 class="cta__title">Punya hasil lab? Coba prediksi sekarang.</h2>
+        <p class="cta__text">Masukkan nilai-nilai pemeriksaan darah Anda, pilih algoritma, dan lihat bagaimana model machine learning menafsirkannya — lengkap dengan penjelasan kontekstualnya.</p>
+      </div>
+      <a class="btn btn--primary btn--lg" href="/predict">Menuju Halaman Prediksi →</a>
+    </div>
+  </section>
+
+  <!-- REFERENSI -->
+  <section class="section" id="referensi">
+    <div class="wrap">
+      <p class="eyebrow">08 · Sumber</p>
+      <h2 class="section__title">Referensi</h2>
+      <p class="section__lede">Seluruh konten edukasi di halaman ini ditulis ulang berdasarkan sumber berikut:</p>
+      <ul class="reflist">
+        <li>
+          <a href="https://www.who.int/news-room/fact-sheets/detail/hepatitis-c" target="_blank" rel="noopener">
+            <span class="reflist__idx mono">WHO</span>
+            <span class="reflist__body">
+              <span class="reflist__title">Hepatitis C — Fact Sheet</span>
+              <span class="reflist__meta">World Health Organization (diakses 2024)</span>
+            </span>
+            <span class="reflist__go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.cdc.gov/hepatitis-c/about/index.html" target="_blank" rel="noopener">
+            <span class="reflist__idx mono">CDC</span>
+            <span class="reflist__body">
+              <span class="reflist__title">Hepatitis C Basics</span>
+              <span class="reflist__meta">U.S. Centers for Disease Control and Prevention (diakses 2024)</span>
+            </span>
+            <span class="reflist__go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.healthline.com/health/hepatitis-c" target="_blank" rel="noopener">
+            <span class="reflist__idx mono">HL</span>
+            <span class="reflist__body">
+              <span class="reflist__title">Hepatitis C: Symptoms, Causes, Risk Factors</span>
+              <span class="reflist__meta">Healthline (diakses 2024)</span>
+            </span>
+            <span class="reflist__go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://archive.ics.uci.edu/dataset/571/hcv+data" target="_blank" rel="noopener">
+            <span class="reflist__idx mono">UCI</span>
+            <span class="reflist__body">
+              <span class="reflist__title">HCV Data Set — UCI Machine Learning Repository</span>
+              <span class="reflist__meta">Dataset yang digunakan untuk melatih model (Lichtinghagen, Klawonn &amp; Hoffmann)</span>
+            </span>
+            <span class="reflist__go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <span class="brand__name">Hepa<span>Check</span></span>
+      <p class="footer__disc">Seluruh konten di situs ini bersifat <strong>edukasi</strong> dan bukan pengganti diagnosis, pemeriksaan, atau konsultasi medis profesional. Jika Anda mencurigai hepatitis C, segera temui dokter atau fasilitas kesehatan terdekat.</p>
+    </div>
+    <nav class="footer__links" aria-label="Navigasi footer">
+      <a href="/#tentang">Apa itu</a>
+      <a href="/#penularan">Penularan</a>
+      <a href="/#gejala">Gejala</a>
+      <a href="/#diagnosis">Diagnosis</a>
+      <a href="/predict">Coba Prediksi</a>
+      <a href="/#referensi">Referensi</a>
+    </nav>
+    <p class="footer__meta mono">HepaCheck · Proyek ML — prediksi hepatitis C · dibuat untuk tujuan edukasi</p>
+  </div>
+</footer>
+
+<script src="/static/js/landing.js"></script>
+</body>
+</html>

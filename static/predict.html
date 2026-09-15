@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coba Prediksi — HepaCheck</title>
+<meta name="description" content="Skrining awal hepatitis C berbasis machine learning. Masukkan hasil lab Anda, pilih algoritma, dan lihat interpretasinya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="page-predict">
+
+<a class="skip" href="#main">Langsung ke konten</a>
+
+<nav class="nav" aria-label="Navigasi utama">
+  <div class="wrap nav__inner">
+    <a class="brand" href="/" aria-label="HepaCheck — beranda">
+      <svg viewBox="0 0 24 24" class="brand__mark" aria-hidden="true"><path d="M12 2.5S5 10.5 5 15.5a7 7 0 0 0 14 0c0-5-7-13-7-13Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 5.5c.3 3.2-1.6 4.8-1.6 7.2a1.8 1.8 0 0 0 3.6 0c0-1.4-.8-2.4-1.2-3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span class="brand__name">Hepa<span>Check</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="/#tentang">Apa itu</a>
+      <a href="/#gejala">Gejala</a>
+      <a href="/#diagnosis">Diagnosis</a>
+      <a href="/#referensi">Referensi</a>
+      <a class="btn btn--primary btn--sm" href="/predict">Coba Prediksi</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="pagehead">
+    <div class="wrap">
+      <a class="backlink" href="/">← Kembali ke beranda</a>
+      <p class="eyebrow">Skrining awal · berbasis data lab</p>
+      <h1 class="pagehead__title">Coba Prediksi</h1>
+      <p class="pagehead__sub">Isi nilai pemeriksaan darah Anda pada formulir, pilih algoritma yang ingin dipakai, lalu lihat bagaimana model machine learning menafsirkannya. Hasil disertai tingkat keyakinan dan penjelasan kontekstual.</p>
+    </div>
+  </header>
+
+  <section class="workbench">
+    <div class="wrap workbench__grid">
+
+      <!-- KIRI: FORM -->
+      <form class="panel form" id="predictForm" novalidate>
+        <div class="panel__head">
+          <h2 class="panel__title">Data Pasien &amp; Hasil Lab</h2>
+          <p class="panel__sub">Gunakan nilai laboratorium terakhir Anda. Satuan mengikuti standar pemeriksaan umum.</p>
+        </div>
+
+        <fieldset class="fieldgroup">
+          <legend class="fieldgroup__legend mono">Identitas</legend>
+          <div class="fieldrow">
+            <div class="field">
+              <label for="f-age">Usia <span class="hint" tabindex="0" aria-label="Bantuan">?</span><span class="hinttxt">Usia pasien dalam tahun (rentang data latih: 19–77).</span></label>
+              <input type="number" id="f-age" name="Age" min="0" max="120" step="1" inputmode="decimal" required>
+            </div>
+            <div class="field">
+              <span class="field__label" id="sexlabel">Jenis Kelamin</span>
+              <div class="seg" role="radiogroup" aria-labelledby="sexlabel">
+                <label class="seg__opt"><input type="radio" name="Sex" value="f" checked><span>Perempuan</span></label>
+                <label class="seg__opt"><input type="radio" name="Sex" value="m"><span>Laki-laki</span></label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldgroup">
+          <legend class="fieldgroup__legend mono">Panel Fungsi Hati</legend>
+          <div class="fieldgrid" id="labFields"><!-- diisi oleh predict.js dari metadata fitur --></div>
+          <p class="fieldgroup__note">Kosongkan kolom yang tidak Anda ketahui — nilai tersebut akan diisi dengan median dari data latih model. Semakin lengkap, semakin akurat hasilnya.</p>
+        </fieldset>
+
+        <div class="form__actions">
+          <button class="btn btn--primary btn--lg" type="submit" id="submitBtn">Prediksi Sekarang</button>
+          <button class="btn btn--ghost" type="reset" id="resetBtn">Reset</button>
+        </div>
+      </form>
+
+      <!-- KANAN: MODEL + HASIL -->
+      <aside class="workbench__side">
+        <div class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">Pilih Model</h2>
+            <p class="panel__sub">Setiap algoritma menafsirkan data secara berbeda. Akurasi diambil langsung dari evaluasi model pada data uji.</p>
+          </div>
+          <div class="modelpick" id="modelPick" role="radiogroup" aria-label="Pilih model prediksi">
+            <p class="loading mono">Memuat metrik model…</p>
+          </div>
+        </div>
+
+        <div class="panel result" id="resultPanel" aria-live="polite">
+          <div class="result__empty" id="resultEmpty">
+            <svg viewBox="0 0 24 24" class="result__empty-icon" aria-hidden="true"><path d="M12 2.5S5 10.5 5 15.5a7 7 0 0 0 14 0c0-5-7-13-7-13Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 12.5h5M12 10v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <p>Hasil prediksi akan muncul di sini setelah Anda mengisi formulir dan menekan <strong>Prediksi Sekarang</strong>.</p>
+          </div>
+          <div class="result__body" id="resultBody" hidden></div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <span class="brand__name">Hepa<span>Check</span></span>
+      <p class="footer__disc">Alat ini melakukan <strong>skrining awal</strong> untuk tujuan edukasi. Hasil prediksi <strong>bukan diagnosis medis</strong> dan tidak dapat menggantikan pemeriksaan laboratorium atau konsultasi dokter. Jika Anda mengalami gejala atau termasuk kelompok berisiko, segera temui tenaga medis.</p>
+    </div>
+    <nav class="footer__links" aria-label="Navigasi footer">
+      <a href="/#tentang">Apa itu</a>
+      <a href="/#penularan">Penularan</a>
+      <a href="/#gejala">Gejala</a>
+      <a href="/#diagnosis">Diagnosis</a>
+      <a href="/#referensi">Referensi</a>
+    </nav>
+    <p class="footer__meta mono">HepaCheck · Proyek ML — prediksi hepatitis C · dibuat untuk tujuan edukasi</p>
+  </div>
+</footer>
+
+<script src="/static/js/predict.js"></script>
+</body>
+</html>

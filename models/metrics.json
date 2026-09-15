@@ -1,0 +1,198 @@
+{
+  "generated_at": "2026-08-27T00:20:01",
+  "data": {
+    "n_rows": 615,
+    "n_train": 492,
+    "n_test": 123,
+    "n_features": 12
+  },
+  "class_labels": [
+    "Blood Donor",
+    "Suspect Blood Donor",
+    "Hepatitis",
+    "Fibrosis",
+    "Cirrhosis"
+  ],
+  "models": {
+    "knn": {
+      "id": "knn",
+      "name": "K-Nearest Neighbors (KNN)",
+      "accuracy": 0.8618,
+      "precision": 0.7819,
+      "recall": 0.8618,
+      "f1": 0.8123,
+      "confusion_matrix": [
+        [
+          102,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0,
+          4
+        ]
+      ]
+    },
+    "svm": {
+      "id": "svm",
+      "name": "Support Vector Machine (SVM)",
+      "accuracy": 0.878,
+      "precision": 0.788,
+      "recall": 0.878,
+      "f1": 0.8282,
+      "confusion_matrix": [
+        [
+          102,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          0,
+          6
+        ]
+      ]
+    },
+    "rf": {
+      "id": "rf",
+      "name": "Random Forest",
+      "accuracy": 0.9024,
+      "precision": 0.8555,
+      "recall": 0.9024,
+      "f1": 0.8762,
+      "confusion_matrix": [
+        [
+          102,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          6,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          2,
+          0,
+          1,
+          2,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          6
+        ]
+      ]
+    },
+    "nb": {
+      "id": "nb",
+      "name": "Naive Bayes (Bernoulli)",
+      "accuracy": 0.8293,
+      "precision": 0.6877,
+      "recall": 0.8293,
+      "f1": 0.7519,
+      "confusion_matrix": [
+        [
+          102,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          8,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  }
+}
